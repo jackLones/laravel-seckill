@@ -17,38 +17,4 @@ class UserController extends Controller
         $this->user = $user;
     }
 
-    public function show(): array
-    {
-        return $this->userResponse(auth()->getToken()->get());
-    }
-
-    public function store(StoreRequest $request): array
-    {
-        $user = $this->user->create($request->validated()['user']);
-
-        auth()->login($user);
-
-        return $this->userResponse(auth()->refresh());
-    }
-
-    public function update(UpdateRequest $request): array
-    {
-        auth()->user()->update($request->validated()['user']);
-
-        return $this->userResponse(auth()->getToken()->get());
-    }
-
-    public function login(LoginRequest $request): array
-    {
-        if ($token = auth()->attempt($request->validated()['user'])) {
-            return $this->userResource($token);
-        }
-
-        abort(Response::HTTP_FORBIDDEN);
-    }
-
-    protected function userResponse(string $jwtToken): array
-    {
-        return ['user' => ['token' => $jwtToken] + auth()->user()->toArray()];
-    }
 }

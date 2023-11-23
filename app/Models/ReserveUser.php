@@ -12,10 +12,7 @@ class ReserveUser extends Authenticatable
 {
     use HasFactory;
 
-    /**
-     * @var int|mixed
-     */
-    public mixed $reserve_time;
+
     /**
      * 与模型关联的数据表.
      *

@@ -40,7 +40,7 @@ class GenerateOrder implements ShouldQueue
 
     private $data;
     /**
-     * UpdateProduct constructor.
+     * 生产消息
      * @param $data
      * @throws \Exception
      */
@@ -54,7 +54,7 @@ class GenerateOrder implements ShouldQueue
      * php artisan queue:work rabbitmq
      * @throws \Exception
      */
-    public function handle()
+    public function handle(): void
     {
         $data = $this->data;
         print_r($data);
@@ -88,6 +88,7 @@ class GenerateOrder implements ShouldQueue
             //更新预扣系统中Redis排队状态为待支付，此时前端可跳转到支付页面
             //key: skstatus:goodsid:userid  skstatus:stock:1515161:23
             Redis::set(config('constants.pre_redis_status').config('constants.pre_redis_product').$data['product_id'].':'.$data['user_id'],2);
+
             //提交事务
             DB::commit();
 

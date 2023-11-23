@@ -12,6 +12,26 @@
 
 可用于生产环境的实战项目，欢迎star啊！
 
+## 秒杀结构设计
+### 服务设计
+* 接入层服务
+* 商品信息服务
+* 秒杀信息服务
+* 预扣服务
+* 库存服务
+* 订单服务
+
+<image src="resources/images/服务层设计.png" width="400">;
+
+### 功能结构与系统架构的交互
+<image src="resources/images/功能结构与系统架构图.png" width="800" height="600">;
+
+## 结合业务的整体架构
+<image src="resources/images/结合业务的整体架构图.png" width="800" >;
+
+## 预约系统架构
+<image src="resources/images/预约系统架构.png" width="600" height="400">;
+
 ## 核心功能进度
 *   [X] 流量控制、削峰、限流
 *   [X] 异步队列

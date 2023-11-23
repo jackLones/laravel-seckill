@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Redis;
 
 class ReserveController extends Controller
 {
-    const MaxCapacity = 10; //预约人数上限
+    const MaxCapacity = 100; //预约人数上限（应该从配置或数据库等获取，这里方便为之）
     public function create(AddRequest $request)
     {
         // 创建预约活动
@@ -107,38 +107,4 @@ class ReserveController extends Controller
         );
     }
 
-    public function show(): array
-    {
-        return $this->userResponse(auth()->getToken()->get());
-    }
-
-    public function store(StoreRequest $request): array
-    {
-        $user = $this->user->create($request->validated()['user']);
-
-        auth()->login($user);
-
-        return $this->userResponse(auth()->refresh());
-    }
-
-    public function update(UpdateRequest $request): array
-    {
-        auth()->user()->update($request->validated()['user']);
-
-        return $this->userResponse(auth()->getToken()->get());
-    }
-
-    public function login(LoginRequest $request): array
-    {
-        if ($token = auth()->attempt($request->validated()['user'])) {
-            return $this->userResource($token);
-        }
-
-        abort(Response::HTTP_FORBIDDEN);
-    }
-
-    protected function userResponse(string $jwtToken): array
-    {
-        return ['user' => ['token' => $jwtToken] + auth()->user()->toArray()];
-    }
 }
