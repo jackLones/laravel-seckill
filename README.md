@@ -46,6 +46,14 @@
 *   [ ] 分库分表
 *   [ ] 服务注册与发现
 
+## 先测试跑通核心下单功能
+* 先redis执行： set stock:1515161 100
+* mysql执行：
+```
+* INSERT INTO `seckill`.`t_activity` (`id`, `activity_name`, `product_id`, `activity_start_date`, `activity_end_date`, `limit_num`, `stock_num`, `status`, `activity_picture_url`, `activity_price`, `created_at`, `updated_at`, `is_enable`) VALUES (1, '11-03测试活动', 1515161, '2023-11-03 17:50:02', '2023-11-03 17:50:05', 1, 107, 1, NULL, 100.00, '0000-00-00 00:00:00', '2023-12-14 14:56:13', 1);
+```
+* 开始下单：你的url/api/order/submitData
+* rabbitmq异步消费订单数据：php artisan queue:work rabbitmq
 
 ## 题外话
 - 鉴于本人对laravel的Eloquent ORM 实在不感冒(吐槽一下，学习成本太高，还没啥用处)，所以用的很少
